@@ -1,0 +1,40 @@
+{
+  "engines": {
+    "composer": "^0.20.8"
+  },
+  "name": "carauction-network",
+  "version": "0.0.1",
+  "description": "car_auction을 위한 샘플 네트워크",
+  "scripts": {
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/carauction-network.bna",
+    "pretest": "npm run lint",
+    "network_install": "composer network install --archiveFile ./dist/carauction-network.bna --card PeerAdmin@hlfv1 ",
+    "network_start": "composer network start --networkName carauction-network  --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --networkVersion $npm_package_version --file networkadmin.card ",
+    "card_import": "composer card import --file networkadmin.card",
+    "network_upgrade": "composer network upgrade -c PeerAdmin@hlfv1 -n carauction-network -V $npm_package_version",
+    "lint": "eslint .",
+    "test": "nyc mocha -t 0 test/*.js && cucumber-js"
+  },
+  "keywords": [
+    "composer",
+    "composer-network"
+  ],
+  "author": "ys",
+  "email": "ys@betweak.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "^0.20.8",
+    "composer-cli": "^0.20.8",
+    "composer-client": "^0.20.8",
+    "composer-common": "^0.20.8",
+    "composer-connector-embedded": "^0.20.8",
+    "composer-cucumber-steps": "^0.20.8",
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "cucumber": "^2.2.0",
+    "eslint": "latest",
+    "nyc": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+}
